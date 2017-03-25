@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Cak Lontonggg</string>
+
+    <string name="soal">Bumi bentuknya?</string>
+    <string name="clue">_ U _ _ _</string>
+    <string name="clues">K U R U S</string>
+    <string name="submit">Submit</string>
+    <string name="help">Bantuan</string>
+
+    <string name="isi">Apakah yakin ingin menggunakan bantuan?</string>
+    <string name="ya">Yakin</string>
+    <string name="tidak">Kembali</string>
+
+
+    <string name="help1">_ U _ U _</string>
+    <string name="help2">_ U _ U S</string>
+</resources>
