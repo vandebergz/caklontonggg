@@ -22,7 +22,7 @@
 
             <TextView
                 android:gravity="center"
-                android:textSize="32dp"
+                android:textSize="26dp"
                 android:text="@string/clue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,6 +51,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/help" />
+
+            <Button
+                android:text="@string/lanjut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lanjut"
+                android:visibility="invisible"/>
 
         </LinearLayout>
 

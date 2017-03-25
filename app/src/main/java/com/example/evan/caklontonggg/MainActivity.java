@@ -12,30 +12,23 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button mSubmit, mHelp;
+    private Button mSubmit, mHelp, mLanjut;
     private TextView mSoal, mClue, mJawab;
 
     private String mAnswer;
     private Question[] mQuestionLibrary = new Question[]{
-            new Question(R.string.soal, "kurus")
+            new Question(R.string.soal, "kurus"),
+            new Question(R.string.soal1, "karang")
     };
     private Clues[] mCluesCorrect = new Clues[]{
-            new Clues(R.string.clues)
+            new Clues(R.string.clues),
+            new Clues(R.string.clues1)
     };
 
     private int mQuestionNumber = 0;
     private int mCluesNumber = 0;
 
-    private void checkAnswer(String answerTrue){
-        String answerIsTrue = mQuestionLibrary[mQuestionNumber].isCorrectAnswer();
-        if (answerTrue.equalsIgnoreCase(answerIsTrue)){
-            int clue = mCluesCorrect[mCluesNumber].getClues();
-            mClue.setText(clue);
-            Toast.makeText(MainActivity.this, "BENAR", Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(MainActivity.this, "SALAH", Toast.LENGTH_SHORT).show();
-        }
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mClue = (TextView)findViewById(R.id.hasil);
         mSubmit = (Button)findViewById(R.id.submit);
         mHelp = (Button)findViewById(R.id.help);
+        mLanjut = (Button) findViewById(R.id.lanjut);
         mJawab = (EditText)findViewById(R.id.jawab);
 
         int question = mQuestionLibrary[mQuestionNumber].getQuestion();
@@ -79,5 +73,38 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mLanjut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Lanjut!", Toast.LENGTH_LONG).show();
+                updateQuestion();
+                updateClues();
+            }
+        });
+    }
+
+    private void updateQuestion() {
+        int question = mQuestionLibrary[mQuestionNumber].getQuestion();
+        mSoal.setText(question);
+    }
+
+    private void updateClues(){
+        int clue = mCluesCorrect[mCluesNumber].getClues();
+        mClue.setText(clue);
+    }
+
+    private void checkAnswer(String answerTrue){
+        String answerIsTrue = mQuestionLibrary[mQuestionNumber].isCorrectAnswer();
+        if (answerTrue.equalsIgnoreCase(answerIsTrue)){
+            int clue = mCluesCorrect[mCluesNumber].getClues();
+            mClue.setText(clue);
+            Toast.makeText(MainActivity.this, "BENAR!"+" Jawabannya "+
+                    answerIsTrue, Toast.LENGTH_SHORT).show();
+            mLanjut.setVisibility(View.VISIBLE);
+            mQuestionNumber = (mQuestionNumber + 1) % mQuestionLibrary.length;
+        }else {
+            Toast.makeText(MainActivity.this, "SALAH", Toast.LENGTH_SHORT).show();
+        }
     }
 }
