@@ -2,10 +2,8 @@
     <string name="app_name">Cak Lontonggg</string>
 
     <string name="soal">Bumi bentuknya?</string>
-    <string name="clue">_ U _ _ _</string>
     <string name="clues">K U R U S</string>
     <string name="soal1">Gedung C?</string>
-    <string name="clue1">_ _ _ A _ _</string>
     <string name="clues1">K A R A N G</string>
 
     <string name="submit">Submit</string>
@@ -19,4 +17,5 @@
 
     <string name="help1">_ U _ U _</string>
     <string name="help2">_ U _ U S</string>
+
 </resources>

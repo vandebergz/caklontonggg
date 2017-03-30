@@ -5,11 +5,16 @@ package com.example.evan.caklontonggg;
  */
 
 public class Clues {
+
+
+    private String mFirstClue, mSecondClue, mThirdClue;
     private int mClues;
 
-    public Clues(int clues){
+    public Clues(int clues, String firstClue){
 
         mClues = clues;
+        mFirstClue = firstClue;
+
     }
 
     public int getClues(){
@@ -18,5 +23,13 @@ public class Clues {
 
     public void setClues(int clues){
         mClues = clues;
+    }
+
+    public String getFirstClue() {
+        return mFirstClue;
+    }
+
+    public void setFirstClue(String mFirstClue) {
+        this.mFirstClue = mFirstClue;
     }
 }

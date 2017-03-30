@@ -7,7 +7,7 @@ package com.example.evan.caklontonggg;
 public class Question {
     private String mCorrectAnswer;
     private int mQuestions;
-    private int mClues;
+
 
     public Question(int question, String correctAnswer){
         mQuestions = question;

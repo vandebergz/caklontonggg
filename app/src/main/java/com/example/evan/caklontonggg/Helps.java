@@ -7,12 +7,8 @@ package com.example.evan.caklontonggg;
 public class Helps {
     private int mHelps;
 
-    public Helps(int clues){
-        mHelps =  clues;
-    }
-
-    public Helps() {
-
+    public Helps(int helps){
+        mHelps =  helps;
     }
 
     public int getHelps(){

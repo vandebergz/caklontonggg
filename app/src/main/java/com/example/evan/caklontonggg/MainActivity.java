@@ -13,7 +13,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private Button mSubmit, mHelp, mLanjut;
-    private TextView mSoal, mClue, mJawab;
+    private TextView mSoal, mClue;
+    private EditText mJawab;
 
     private String mAnswer;
     private Question[] mQuestionLibrary = new Question[]{
@@ -21,12 +22,12 @@ public class MainActivity extends AppCompatActivity {
             new Question(R.string.soal1, "karang")
     };
     private Clues[] mCluesCorrect = new Clues[]{
-            new Clues(R.string.clues),
-            new Clues(R.string.clues1)
+            new Clues(R.string.clues, "_ U _ _ _"),
+            new Clues(R.string.clues1, "_ A _ _ _ _")
     };
 
-    private int mQuestionNumber = 0;
-    private int mCluesNumber = 0;
+    private int mQuestionNumber = 0; //index pertanyaan
+    private int mCluesNumber = 0; // index clues (jawaban yang ditampilkan)
 
 
     @Override
@@ -43,16 +44,17 @@ public class MainActivity extends AppCompatActivity {
 
         int question = mQuestionLibrary[mQuestionNumber].getQuestion();
         mSoal.setText(question);
+        String clue = mCluesCorrect[mCluesNumber].getFirstClue();
+        mClue.setText(clue);
 
         mSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 mAnswer = mJawab.getText().toString();
                 checkAnswer(mAnswer);
-                mJawab.setText("");
+                mJawab.getText().clear();
             }
         });
-
 
         final Intent bantuan = getIntent();
         if (bantuan.hasExtra("helps")){
@@ -66,9 +68,12 @@ public class MainActivity extends AppCompatActivity {
                 Context context = MainActivity.this;
                 Class destinationActivity = HelpsActivity.class;
                 Intent intent = new Intent(context, destinationActivity);
+
                 if (bantuan.hasExtra("helps")) {
-                    String indexClue = bantuan.getStringExtra("indexNumber");
-                    intent.putExtra("clueIndex", Integer.parseInt(indexClue));
+                    String indexClue = bantuan.getStringExtra("nextHelps");
+                    intent.putExtra("helpsIndex", Integer.parseInt(indexClue));
+                    String chances = bantuan.getStringExtra("chances");
+                    intent.putExtra("chance", Integer.parseInt(chances));
                 }
                 startActivity(intent);
             }
@@ -80,6 +85,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Lanjut!", Toast.LENGTH_LONG).show();
                 updateQuestion();
                 updateClues();
+                updateFirstClue();
+                mLanjut.setVisibility(View.INVISIBLE);
+
+                Context context = MainActivity.this;
+                Class destinationActivity = HelpsActivity.class;
+                Intent intent = new Intent(context, destinationActivity);
+                intent.putExtra("chance", 2);
             }
         });
     }
@@ -94,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
         mClue.setText(clue);
     }
 
+    private void updateFirstClue(){
+        String clue = mCluesCorrect[mCluesNumber].getFirstClue();
+        mClue.setText(clue);
+    }
+
     private void checkAnswer(String answerTrue){
         String answerIsTrue = mQuestionLibrary[mQuestionNumber].isCorrectAnswer();
         if (answerTrue.equalsIgnoreCase(answerIsTrue)){
@@ -103,6 +120,10 @@ public class MainActivity extends AppCompatActivity {
                     answerIsTrue, Toast.LENGTH_SHORT).show();
             mLanjut.setVisibility(View.VISIBLE);
             mQuestionNumber = (mQuestionNumber + 1) % mQuestionLibrary.length;
+            mCluesNumber = (mCluesNumber + 1) % mCluesCorrect.length;
+
+            Intent intent = new Intent(MainActivity.this, HelpsActivity.class);
+            intent.putExtra("chance", 2);
         }else {
             Toast.makeText(MainActivity.this, "SALAH", Toast.LENGTH_SHORT).show();
         }

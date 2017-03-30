@@ -23,7 +23,7 @@
             <TextView
                 android:gravity="center"
                 android:textSize="26dp"
-                android:text="@string/clue"
+                android:text=""
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/hasil"
@@ -38,7 +38,7 @@
                 android:hint="Jawaban"
                 android:ems="10"
                 android:id="@+id/jawab"
-                android:onClick="clear"/>
+                />
 
             <Button
                 android:text="@string/submit"
